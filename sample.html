@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Conceptual Framework - IAS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+      display: flex;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 320px;
+      padding: 40px 30px;
+      background-color: #fff;
+      border-right: 1px solid #eee;
+      flex-shrink: 0;
+    }
+
+    .sidebar h1 {
+      font-size: 22px;
+      margin-bottom: 40px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      transition: background 0.3s, color 0.3s;
+      font-weight: 500;
+    }
+
+    .sidebar a:hover {
+      background-color: #f8f8f8;
+      color: #000;
+    }
+
+    .sidebar a.active {
+      background-color: #f8f1f1;
+      color: red;
+      font-weight: 700;
+      border-radius: 14px;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 40px 0;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Search Box */
+    .search-box {
+      display: flex;
+      align-items: center;
+      background-color: #f6f6f6;
+      border-radius: 999px;
+      padding: 10px 20px;
+      width: 60%;
+      max-width: 500px;
+      box-sizing: border-box;
+      min-width: 200px;
+      flex-grow: 1;
+    }
+
+    .search-box img {
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .search-box input {
+      border: none;
+      background: none;
+      outline: none;
+      font-size: 15px;
+      width: 100%;
+      padding-left: 12px;
+      color: #333;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Sort Section */
+    .sort-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: red;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    /* Sort Select Control */
+    .sort-select-wrapper {
+      position: relative;
+      display: inline-block;
+      background-color: #f5f5f5;
+      border-radius: 20px;
+      padding: 10px 18px 10px 14px;
+      cursor: pointer;
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sort-select-wrapper img {
+      width: 20px;
+      height: 20px;
+      user-select: none;
+    }
+
+    .sort-select {
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+      appearance: none;
+      cursor: pointer;
+      padding: 0;
+      flex: 1;
+      font-family: 'Poppins', sans-serif;
+      outline-offset: 2px;
+    }
+
+    /* Custom dropdown arrow */
+    .sort-select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      pointer-events: none;
+      transform: translateY(-50%) rotate(45deg);
+      border-right: 2px solid #666;
+      border-bottom: 2px solid #666;
+      transition: transform 0.3s ease;
+    }
+
+    /* When select is focused, rotate arrow */
+    .sort-select:focus + .sort-select-wrapper::after {
+      transform: translateY(-50%) rotate(-135deg);
+    }
+
+    /* Cards Container */
+    .container {
+      padding: 30px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 30px;
+    }
+
+    /* Card */
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 500;
+    }
+
+    .card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 20px;
+      user-select: none;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #ffe6e6;
+      color: red;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 4px 12px;
+      width: fit-content;
+      user-select: none;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #000;
+      line-height: 1.3;
+      user-select: text;
+    }
+
+    .read-time {
+      font-size: 13px;
+      color: #888;
+      font-weight: 400;
+      user-select: none;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 250px;
+        padding: 30px 20px;
+      }
+
+      header {
+        padding: 20px 30px 0;
+      }
+
+      .search-box {
+        width: 70%;
+        max-width: none;
+      }
+
+      .container {
+        padding: 20px 30px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding: 20px 15px;
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .sidebar h1 {
+        flex-shrink: 0;
+        margin-right: 20px;
+        margin-bottom: 0;
+        font-size: 18px;
+        align-self: center;
+      }
+
+      .sidebar a {
+        display: inline-block;
+        margin: 0 10px 0 0;
+        padding: 10px 14px;
+        font-size: 14px;
+        border-radius: 10px;
+        line-height: 1.2;
+      }
+
+      .sidebar a.active {
+        border-radius: 10px;
+      }
+
+      .main-content {
+        width: 100%;
+        padding: 0;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px 20px 15px;
+      }
+
+      .search-box {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 12px;
+      }
+
+      .sort-section {
+        justify-content: flex-start;
+        font-size: 16px;
+        margin-top: 0;
+      }
+
+      .sort-select-wrapper {
+        min-width: 120px;
+      }
+
+      .container {
+        padding: 15px 20px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        grid-template-columns: 1fr;
+        padding: 15px 15px;
+        gap: 16px;
+      }
+
+      .card img {
+        height: 180px;
+      }
+
+      .sidebar a {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+
+      .sidebar h1 {
+        font-size: 16px;
+      }
+
+      header {
+        padding: 15px 15px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h1>Conceptual Framework</h1>
+    <a href="#" class="active">International Accounting Standard (IAS)</a>
+    <a href="#">International Financing Reporting Standard (IFRS)</a>
+    <a href="#">International Financial Reporting Interpretations Committee (IFRIC)</a>
+    <a href="#">Standard Interpretation Committee (SIC)</a>
+    <a href="#">Tax Code</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <header>
+      <div class="search-box">
+        <img src="https://8box.solutions/wp-content/uploads/2025/09/mynaui_search.png" alt="Search" />
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search International Accounting Standard"
+          onkeyup="filterCards()"
+          autocomplete="off"
+        />
+      </div>
+      <div class="sort-section" title="Sort by">
+        <span>Sort</span>
+        <div class="sort-select-wrapper">
+          <img src="https://8box.solutions/wp-content/uploads/2025/09/ic_outline-sort.png" alt="Sort Icon" />
+          <select class="sort-select" onchange="sortCards(this.value)" aria-label="Sort options">
+            <option value="default">Sort by</option>
+            <option value="asc">A - Z</option>
+            <option value="desc">Z - A</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- Cards -->
+    <div class="container" id="cardContainer">
+      <!-- Cards generated by JS -->
+    </div>
+  </div>
+
+  <!-- JS to Inject Cards and Handle Search + Sort -->
+  <script>
+    const iasTitles = [
+      "Conceptual Framework for Reporting",
+      "IAS 1 Presentation of Financial Statements",
+      "IAS 2 Inventories",
+      "IAS 7 Statement of Cash Flows",
+      "IAS 8 Accounting Policies, Changes",
+      "IAS 12 Income Taxes",
+      "IAS 16 Property, Plant and Equipment",
+      "IAS 19 Employee Benefits",
+      "IAS 20 Accounting for Government Grants",
+      "IAS 21 The Effects of Changes in Foreign Exchange Rates",
+      "IAS 23 Borrowing Costs",
+      "IAS 24 Related Party Disclosures",
+      "IAS 26 Accounting and Reporting by Retirement Benefit Plans",
+      "IAS 27 Separate Financial Statements",
+      "IAS 28 Investments in Associates and Joint Ventures",
+      "IAS 29 Financial Reporting in Hyperinflationary Economies",
+      "IAS 32 Financial Instruments: Presentation",
+      "IAS 33 Earnings per Share"
+    ];
+
+    const container = document.getElementById("cardContainer");
+
+    function renderCards(cards) {
+      container.innerHTML = '';
+      cards.forEach(title => {
+        const card = document.createElement('a');
+        card.href = '#';
+        card.className = 'card';
+
+        card.innerHTML = `
+          <img src="https://8box.solutions/wp-content/uploads/2025/09/Rectangle-19277.png" alt="${title}">
+          <div class="card-content">
+            <div class="tag">IAS</div>
+            <div class="title">${title}</div>
+            <div class="read-time">${Math.floor(Math.random() * 5) + 5} minute(s) read</div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Initial render
+    renderCards(iasTitles);
+
+    function filterCards() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = iasTitles.filter(title => title.toLowerCase().includes(input));
+      renderCards(filtered);
+    }
+
+    function sortCards(order) {
+      let filtered = iasTitles.filter(title => {
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        return title.toLowerCase().includes(input);
+      });
+
+      if (order === 'asc') {
+        filtered.sort((a, b) => a.localeCompare(b));
+      } else if (order === 'desc') {
+        filtered.sort((a, b) => b.localeCompare(a));
+      }
+
+      renderCards(filtered);
+    }
+  </script>
+</body>
+</html>
