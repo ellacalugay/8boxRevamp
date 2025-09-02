@@ -357,8 +357,8 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h1>Conceptual Framework</h1>
-        <a href="#" class="active">International Accounting Standard (IAS)</a>
-        <a href="#">International Financing Reporting Standard (IFRS)</a>
+        <a href="#" onclick="showIAS()" class="active">International Accounting Standard (IAS)</a>
+        <a href="#" onclick="showIFRS()">International Financing Reporting Standard (IFRS)</a>
         <a href="#">International Financial Reporting Interpretations Committee (IFRIC)</a>
         <a href="#">Standard Interpretation Committee (SIC)</a>
         <a href="#">Tax Code</a>
@@ -440,19 +440,63 @@
             "IAS 23 Borrowing Costs" : "https://8box.solutions/books/ias-23-borrowing-cost/"
         };
 
+        // Initialize with IAS content
+        let currentTitles = iasTitles;
+        let currentLinks = iasLinks;
+        let currentTag = "IAS";
+
+        // IFRS Data
+        const ifrsTitles = [
+            "IFRS 1 First-time Adoption of International Financial Reporting Standards",
+            "IFRS 2 Share-based Payment",
+            "IFRS 3 Business Combinations",
+            "IFRS 5 Non-current Assets Held for Sale and Discontinued Operations",
+            "IFRS 6 Exploration for and Evaluation of Mineral Resources",
+            "IFRS 7 Financial Instruments: Disclosures",
+            "IFRS 8 Operating Segments",
+            "IFRS 9 Financial Instruments",
+            "IFRS 10 Consolidated Financial Statements",
+            "IFRS 11 Joint Arrangements",
+            "IFRS 12 Disclosure of Interests in Other Entities",
+            "IFRS 13 Fair Value Measurement",
+            "IFRS 14 Regulatory Deferral Accounts",
+            "IFRS 15 Revenue from Contracts with Customers",
+            "IFRS 16 Leases",
+            "IFRS 17 Insurance Contracts"
+        ];
+
+        const ifrsLinks = {
+            "IFRS 1 First-time Adoption of International Financial Reporting Standards": "https://8box.solutions/ifrs-1-first-time-adoption-of-international-financial-reporting-standards/",
+            "IFRS 2 Share-based Payment": "https://8box.solutions/ifrs-2-share-based-payment/" ,
+            "IFRS 3 Business Combinations": "https://8box.solutions/ifrs-3-business-combinations/",
+            "IFRS 5 Non-current Assets Held for Sale and Discontinued Operations": "https://8box.solutions/ifrs-5-non-current-assets-held-for-sale-and-discontinued-operations/",
+            "IFRS 6 Exploration for and Evaluation of Mineral Resources": "https://8box.solutions/ifrs-6-exploration-for-and-evaluation-of-mineral-resources/",
+            "IFRS 7 Financial Instruments: Disclosures": "https://8box.solutions/ifrs-7-financial-instruments-disclosures/",
+            "IFRS 8 Operating Segments": "https://8box.solutions/ifrs-8-operating-segments/",
+            "IFRS 9 Financial Instruments": "https://8box.solutions/ifrs-9-financial-instruments/",
+            "IFRS 10 Consolidated Financial Statements": "https://8box.solutions/ifrs-10-consolidated-financial-statements/",
+            "IFRS 11 Joint Arrangements": "https://8box.solutions/ifrs-11-joint-arrangements/",
+            "IFRS 12 Disclosure of Interests in Other Entities": "https://8box.solutions/ifrs-12-disclosure-of-interests-in-other-entities/",
+            "IFRS 13 Fair Value Measurement": "https://8box.solutions/ifrs-13-fair-value-measurement/",
+            "IFRS 14 Regulatory Deferral Accounts": "https://8box.solutions/ifrs-14-regulatory-deferral-accounts/",
+            "IFRS 15 Revenue from Contracts with Customers": "https://8box.solutions/ifrs-15-revenue-from-contracts-with-customers/",
+            "IFRS 16 Leases": "https://8box.solutions/ifrs-16-leases/",
+            "IFRS 17 Insurance Contracts": "https://8box.solutions/ifrs-17-insurance-contracts/"
+        };
+
         const container = document.getElementById("cardContainer");
 
         function renderCards(cards) {
             container.innerHTML = '';
             cards.forEach (title => {
                 const card = document.createElement('a');
-                card.href = iasLinks[title] || '#';
+                card.href = currentLinks[title] || '#';
                 card.className = 'card';
 
                 card.innerHTML = `
                     <img src="https://8box.solutions/wp-content/uploads/2025/09/Rectangle-19277.png" alt="${title}">
                     <div class="card-content">
-                        <div class="tag">IAS</div>
+                        <div class="tag">${currentTag}</div>
                         <div class="title">${title}</div>
                         <div class="read-time">${Math.floor(Math.random() * 5) + 5} minute(s) read</div>
                     </div>
@@ -462,17 +506,49 @@
             });
         }
 
-        // Search Input
-        renderCards (iasTitles);
+        function showIAS() {
+            currentTitles = iasTitles;
+            currentLinks = iasLinks;
+            currentTag = "IAS";
+            
+            // Update active state
+            document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.sidebar a')[0].classList.add('active');
+            
+            // Update search placeholder
+            document.getElementById('searchInput').placeholder = "Search International Accounting Standard";
+            document.getElementById('searchInput').value = "";
+            
+            renderCards(currentTitles);
+        }
+
+        function showIFRS() {
+            currentTitles = ifrsTitles;
+            currentLinks = ifrsLinks;
+            currentTag = "IFRS";
+            
+            // Update active state
+            document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.sidebar a')[1].classList.add('active');
+            
+            // Update search placeholder
+            document.getElementById('searchInput').placeholder = "Search International Financial Reporting Standard";
+            document.getElementById('searchInput').value = "";
+            
+            renderCards(currentTitles);
+        }
+
+        // Initialize the page with IAS content
+        renderCards(iasTitles);
 
         function filterCards() {
             const input = document.getElementById("searchInput").value.toLowerCase();
-            const filtered = iasTitles.filter(title => title.toLowerCase().includes(input));
+            const filtered = currentTitles.filter(title => title.toLowerCase().includes(input));
             renderCards (filtered);
         }
 
         function sortCards(order) {
-            let filtered = iasTitles.filter(title => {
+            let filtered = currentTitles.filter(title => {
                 const input = document.getElementById("searchInput").value.toLowerCase();
                 return title.toLowerCase().includes(input);
             });
