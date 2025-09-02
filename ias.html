@@ -127,7 +127,6 @@
             display: flex;
             align-items: center;
             min-width: 140px;
-            display: inline-block;
             border-radius: 20px;
             padding: 10px 18px 10px 14px;
             gap: 10px;
@@ -138,6 +137,7 @@
         .sort-select-wrapper img {
             width: 20px;
             height: 20px;
+            user-select: none;
         }
 
         .sort-select {
@@ -147,11 +147,11 @@
             font-weight: 600;
             background: transparent;
             border: none;
-            padding: 0;
+            padding: 6px 10px;
             flex: 1;
             cursor: pointer;
             appearance: none;
-            outline-offset: 2px;
+            outline: none;
         }
 
         /* Custome Dropdown Arrow*/
@@ -170,7 +170,7 @@
         }
 
         /* When select is focused, rotate arrow */
-        .sort-select:focus + .sort-select-wrapper::after {
+        .sort-select-wrapper:focus-within::after {
             transform: translateY(-50%) rotate(-135deg);
         }
 
@@ -437,7 +437,21 @@
             "IAS 19 Employee Benefits" : "https://8box.solutions/books/ias-19-employee-benefits/",
             "IAS 20 Accounting for Government Grants" : "https://8box.solutions/books/ias-20-accounting-for-government-grants-and-disclosure-of-government-assistance/",
             "IAS 21 The Effects of Changes in Foreign Exchange Rates" : "https://8box.solutions/books/ias-21-the-effects-of-changes-i-foreign-exchange-rates/",
-            "IAS 23 Borrowing Costs" : "https://8box.solutions/books/ias-23-borrowing-cost/"
+            "IAS 23 Borrowing Costs" : "https://8box.solutions/books/ias-23-borrowing-cost/",
+            "IAS 24 Related Party Disclosures" : "https://8box.solutions/books/ias-24-related-party-disclosures/",
+            "IAS 26 Accounting and Reporting by Retirement Benefit Plans" : "https://8box.solutions/books/ias-26-accounting-and-reporting-by-retirement-benefit-plans/",
+            "IAS 27 Separate Financial Statements" : "https://8box.solutions/books/ias-27-separate-financial-statements/",
+            "IAS 28 Investments in Associates and Joint Ventures" : "https://8box.solutions/books/ias-28-investments-in-associates-and-joint-ventures/",
+            "IAS 29 Financial Reporting in Hyperinflationary Economies" : "https://8box.solutions/books/ias-29-financial-reporting-in-hyperinflationary-economies/",
+            "IAS 32 Financial Instruments: Presentation" : "https://8box.solutions/books/ias-32-financial-instruments-presentation/",
+            "IAS 33 Earnings per Share" : "https://8box.solutions/books/ias-33-earnings-per-share/",
+            "IAS 34 Interim Financial Reporting" : "https://8box.solutions/books/ias-34-interim-financial-reporting/",
+            "IAS 36 Impairment of Assets" : "https://8box.solutions/books/ias-36-impairment-of-assets/",
+            "IAS 37 Provisions, Contingent, Liabilities" : "https://8box.solutions/books/ias-37-provisions-contingent-liabilities-and-contingent-assets/",
+            "IAS 38 Intangible Assets" : "https://8box.solutions/books/ias-38-intangible-assets/",
+            "IAS 39 Financial Instruments: Recognition" : "https://8box.solutions/books/ias-39-financial-instruments-recognition-and-measurement/",
+            "IAS 40 Investment Property" : "https://8box.solutions/books/ias-40-investment-property/",
+            "IAS 41 Agriculture" : "https://8box.solutions/books/ias-41-agriculture/"
         };
 
         // Initialize with IAS content
